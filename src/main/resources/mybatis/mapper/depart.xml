@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdi.sp.DepartMapper">
+  <select id="selectDepartList" resultType="com.bdi.sp.vo.Depart">
+    select dino as id, d.* from depart_info d
+    <where>
+    	<if test="diname!=null"> and diname=#{diname}</if>
+    	<if test="dino!=null"> and dino=#{dino}</if>
+    	<if test="didesc!=null"> and didesc=#{didesc}</if>
+    	<if test="dicnt!=null"> and dicnt=#{dicnt}</if>
+    </where>
+  </select>
+  <select id="selectDepart" resultType="com.bdi.sp.vo.Depart">
+  	select *from depart_info
+  	where dino=#{dino}
+  </select>
+  <insert id="insertDepart">
+  	insert into depart_info(diname,didesc,dicnt)
+  	values(#{diname},#{didesc},#{dicnt})
+  </insert>
+  <delete id="deleteDepart">
+  delete from depart_info
+  where dino =#{dino}
+  </delete>
+  <update id="updateDepart">
+  update depart_info 
+  	<set>
+  		<if test="diname!=null">diname=#{diname},</if>
+  		<if test="didesc!=null">didesc=#{didesc},</if>
+  		<if test="dicnt!=null">dicnt=#{dicnt},</if>
+  	</set>
+  	where dino =#{dino}
+  </update>
+  
+</mapper>

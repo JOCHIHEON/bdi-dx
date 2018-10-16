@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="rootPath" value="${pageContext.request.contextPath}"/>
+<c:set var="resPath" value="${rootPath}/resources"/>
+<c:set var="gridPath" value="${resPath}/dhtmlx/skins/skyblue/imgs/dxgrid_skyblue"/>
+<link rel="stylesheet" type="text/css" href="${resPath}/dhtmlx/codebase/dhtmlx.css"/>
+<link rel="stylesheet" type="text/css" href="${resPath}/dhtmlx/codebase/fonts/font_roboto/roboto.css"/>
+<link rel="stylesheet" type="text/css" href="${resPath}/dhtmlx/skins/skyblue/dhtmlx.css"/>
+<script src="${resPath}/dhtmlx/codebase/dhtmlx.js"></script>
+<script src="${resPath}/js/AjaxUtil.js"></script>
+<script>
+var au = new AjaxUtil();
+
+</script>
