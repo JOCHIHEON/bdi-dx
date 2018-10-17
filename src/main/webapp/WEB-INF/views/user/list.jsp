@@ -12,7 +12,7 @@
 		uiGrid = new dhtmlXGridObject('divGrid');
 		uiGrid.setImagePath('${resPath}/dhtmlx/skins/skyblue/imgs/dhxgrid_skyblue/');
 		uiGrid.setHeader('번호,아이디,이름,별명,이메일,생년월일,전화번호,성별');
-		uiGrid.setColumnIds('UINO,UIID,UINAME,UINICKNAME,UIEMAIL,UIBIRTH,UIPHONENO,UIGENDER');
+		uiGrid.setColumnIds('uino,uiid,uiname,uinickname,uiemail,uibirth,uiphoneno,uigender');
 		uiGrid.setColAlign('center,center,center,center,center,center,center,center');
 		uiGrid.setColTypes('ro,ro,ro,ed,ed,ed,ed,ro');
 		uiGrid.setColSorting('int,str,str,str,str,str,int,int');
@@ -21,7 +21,6 @@
 			res= JSON.parse(res);
 			uiGrid.parse(res,'js');
 		}});
-		
 	});
 </script>
 </head>

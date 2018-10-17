@@ -12,12 +12,6 @@ public class User {
 	private Integer uiphoneno;
 	private Integer uigender;
 	private Integer uiactive;
-	@Override
-	public String toString() {
-		return "UserInfo [uino=" + uino + ", uiid=" + uiid + ", uipwd=" + uipwd + ", uiname=" + uiname + ", uinickname="
-				+ uinickname + ", uiemail=" + uiemail + ", uibirth=" + uibirth + ", uiphoneno=" + uiphoneno
-				+ ", uigender=" + uigender + ", uiactive=" + uiactive + "]";
-	}
 	public Integer getUino() {
 		return uino;
 	}
@@ -78,4 +72,11 @@ public class User {
 	public void setUiactive(Integer uiactive) {
 		this.uiactive = uiactive;
 	}
+	@Override
+	public String toString() {
+		return "User [uino=" + uino + ", uiid=" + uiid + ", uipwd=" + uipwd + ", uiname=" + uiname + ", uinickname="
+				+ uinickname + ", uiemail=" + uiemail + ", uibirth=" + uibirth + ", uiphoneno=" + uiphoneno
+				+ ", uigender=" + uigender + ", uiactive=" + uiactive + "]";
+	}
+	
 }

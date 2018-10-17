@@ -22,7 +22,6 @@
 				{type:'input',name:'UIPHONENO',label:'전화번호', required:true},
 				{type:'radio',name:'UIGENDER',value:'1',label:'남', checked:true},
 				{type:'radio',name:'UIGENDER',value:'0',label:'여'},
-				{type:'radio',name:'UIGENDER',value:'2',label:'이외'},
 				{type:'button',name:'joinbtn',value:'JOIN'}
 			]}
 	]
@@ -39,17 +38,20 @@
 			{type:'button',value:'로그인',name:'loginWin'},
 			{type:'button',value:'회원가입',name:'joinWin'}
 		]
+		var uiGrid;
+		uiGrid = new dhtmlXGridObject('dxGrid');
+		uiGrid.setImagePath('${resPath}/dhtmlx/skins/skyblue/imgs/dhxgrid_skyblue/');
+		uiGrid.setHeader('번호,아이디,이름,별명,이메일,생년월일,전화번호,성별');
+		uiGrid.setColumnIds('uino,uiid,uiname,uinickname,uiemail,uibirth,uiphoneno,uigender');
+		uiGrid.setColAlign('center,center,center,center,center,center,center,center');
+		uiGrid.setColTypes('ro,ro,ro,ed,ed,ed,ed,ro');
+		uiGrid.setColSorting('int,str,str,str,str,str,int,int');
+		uiGrid.init();
+		au.send({url:'/users',success:function(res){
+			res= JSON.parse(res);
+			uiGrid.parse(res,'js');
+		}});
 		var dxForm = new dhtmlXForm('dxForm',forms)
-		dxGrid = new dhtmlXGridObject('dxGrid');
-		dxGrid.setImagePath('${gridPath}');
-		dxGrid.setHeader('번호,아이디,이름,별명,이메일,생년월일,전화번호,성별');
-		dxGrid.setColumnIds('UINO,UIID,UINAME,UINICKNAME,UIEMAIL,UIBIRTH,UIPHONENO,UIGENDER');
-		dxGrid.setColTypes('ro,ro,ro,ed,ed,ed,ed,ro');
-		dxGrid.init();
-		var data = [
-			{}
-		]
-		dxGrid.parse(data,'js');
 		dxForm.attachEvent('onButtonClick',function(name){
 			if(name=='joinWin'){
 				if(!dxWin){
@@ -118,9 +120,9 @@
 	window.addEventListener('load',doInit)
 </script>
 <body>
-<div id="dxGrid" style="width:400px;height:300px"></div>
+<div id="dxGrid" style="width:1000px;height:350px"></div>
 <div id="dxForm" style="height:200px"></div>
 <div id="loginForm" style="width:200px;height:100px"></div>
-<div id="joinForm" style="width:500px;height:500px"></div>
+<div id="joinForm" style="width:300px;height:500px"></div>
 </body>
 </html>

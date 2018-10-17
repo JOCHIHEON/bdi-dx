@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bdi.sp.vo.User">
   <select id="selectUserList" resultType="com.bdi.sp.vo.User">
-    select uino as id, u.* from user_info ui
+    select uino as id, ui.* from user_info ui
     <where>
     	<if test="uino!=null"> and uino=#{uino}</if>
     	<if test="uiid!=null"> and uiid=#{uiid}</if>
