@@ -7,36 +7,90 @@
 	<title>스프링테스트</title>
 </head>
 <script>
-
 	var wWidth = screen.width;
 	var wHeight = screen.height;
 	var dxForm,dxWin;
+	var joinFormData = [
+		{type:'fieldset',name:'join',label:'join',inputWidth:'auto',
+			list:[
+				{type:'input',name:'UIID',label:'아이디',validate:'ValidAplhaNumeric',required:true},
+				{type:'password',name:'UIPWD',label:'비밀번호',validate:'ValidAplhaNumeric',required:true},
+				{type:'input',name:'UINAME',label:'이름',required:true},
+				{type:'input',name:'UINICKNAME',label:'별명',required:true},
+				{type:'input',name:'UIEMAIL',label:'이메일',required:true},
+				{type:'date',name:'UIBIRTH',label:'생년월일',required:true},
+				{type:'input',name:'UIPHONENO',label:'전화번호', required:true},
+				{type:'radio',name:'UIGENDER',value:'1',label:'남', checked:true},
+				{type:'radio',name:'UIGENDER',value:'0',label:'여'},
+				{type:'radio',name:'UIGENDER',value:'2',label:'이외'},
+				{type:'button',name:'joinbtn',value:'JOIN'}
+			]}
+	]
 	var loginFormData = [
 		{type:'fieldset',name:'login',label:'login',inputWidth:'auto',
 			list:[
 				{type:'input',name:'id',label:'ID',validate:'ValidAplhaNumeric',required:true},
 				{type:'password',name:'pwd',label:'PWD',validate:'ValidAplhaNumeric',required:true},
-				{type:'button',name:'loginbtn',value:'LOGIN'},
+				{type:'button',name:'loginbtn',value:'LOGIN'}
 			]}
 	]
 	function doInit(){
 		var forms = [
-			{type:'settings',position:'label-left',labelWidth:100,inputWidth:100},
-			{type:'fieldset',label:'부서',list:[
-				{type:'input',label:'test'}
-			]},
-			{type:'button',value:'버튼',name:'btn'},
-			{type:'button',value:'오픈',name:'open'}
+			{type:'button',value:'로그인',name:'loginWin'},
+			{type:'button',value:'회원가입',name:'joinWin'}
 		]
 		var dxForm = new dhtmlXForm('dxForm',forms)
+		dxGrid = new dhtmlXGridObject('dxGrid');
+		dxGrid.setImagePath('${gridPath}');
+		dxGrid.setHeader('번호,아이디,이름,별명,이메일,생년월일,전화번호,성별');
+		dxGrid.setColumnIds('UINO,UIID,UINAME,UINICKNAME,UIEMAIL,UIBIRTH,UIPHONENO,UIGENDER');
+		dxGrid.setColTypes('ro,ro,ro,ed,ed,ed,ed,ro');
+		dxGrid.init();
+		var data = [
+			{}
+		]
+		dxGrid.parse(data,'js');
 		dxForm.attachEvent('onButtonClick',function(name){
-			if(name=='btn'){
-				alert(name);
-			}else if(name=='open'){
+			if(name=='joinWin'){
+				if(!dxWin){
+					dxWin = new dhtmlXWindows();
+					w2 = dxWin.createWindow('w2',0,10,400,400);
+					w2.setText('회원가입');
+					w2.centerOnScreen();
+					var loginForm = new dhtmlXForm('joinForm',joinFormData);
+					dxWin.window('w2').attachObject('joinForm');
+					loginForm.attachEvent('onButtonClick',function(name){
+							if(name=='joinbtn'){
+								if(loginForm.validate()){
+									var id = joinForm.getItemValue('UIID');
+									var pwd = joinForm.getItemValue('UIPWD');
+									var name = joinForm.getItemValue('UINAME');
+									var nickname = joinForm.getItemValue('UINICKNAME');
+									var email = joinForm.getItemValue('UIEMAIL');
+									var birth = joinForm.getItemValue('UIBIRTH');
+									var phone = joinForm.getItemValue('UIPHONENO');
+									var gender = joinForm.getItemValue('UIGENDER');
+									var conf = {
+											url:'/login',
+											method:'POST',
+											param: JSON.stringify({id:id,pwd:pwd,name:name,nickname:nickname,email:email,
+												birth:birth,phone:phone,gender:gender}),
+											success : function(res){
+												res = JSON.parse(res);
+												alert(res.msg);
+											}
+									}
+									au.send(conf);
+								}
+							}
+						})
+					}
+			}else if(name=='loginWin'){
 				if(!dxWin){
 				dxWin = new dhtmlXWindows();
-				dxWin.createWindow('w1',0,10,250,240);
-				dxWin.window('w1').centerOnScreen();
+				w1 = dxWin.createWindow('w1',0,10,250,240);
+				w1.setText('로그인');
+				w1.centerOnScreen();
 				var loginForm = new dhtmlXForm('loginForm',loginFormData);
 				dxWin.window('w1').attachObject('loginForm');
 				loginForm.attachEvent('onButtonClick',function(name){
@@ -64,7 +118,9 @@
 	window.addEventListener('load',doInit)
 </script>
 <body>
-<div id="dxForm" style="height:100px"></div>
+<div id="dxGrid" style="width:400px;height:300px"></div>
+<div id="dxForm" style="height:200px"></div>
 <div id="loginForm" style="width:200px;height:100px"></div>
+<div id="joinForm" style="width:500px;height:500px"></div>
 </body>
 </html>
