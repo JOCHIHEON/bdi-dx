@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdi.sp.vo.User">
+  <select id="selectUserList" resultType="com.bdi.sp.vo.User">
+    select uino as id, u.* from user_info ui
+    <where>
+    	<if test="uino!=null"> and uino=#{uino}</if>
+    	<if test="uiid!=null"> and uiid=#{uiid}</if>
+    	<if test="uipwd!=null"> and uipwd=#{uipwd}</if>
+    	<if test="uiname!=null"> and uiname=#{uiname}</if>
+    	<if test="uinickname!=null"> and uinickname=#{uinickname}</if>
+    	<if test="uiemail!=null"> and uiemail=#{uiemail}</if>
+    	<if test="uibirth!=null"> and uibirth=#{uibirth}</if>
+    	<if test="uiphoneno!=null"> and uiphoneno=#{uiphoneno}</if>
+    	<if test="uigender!=null"> and uigender=#{uigender}</if>
+    	<if test="uiactive!=null"> and uiactive=#{uiactive}</if>
+    	</where>
+  </select>
+  
+  <select id="selectUser" resultType="com.bdi.sp.vo.User">
+  	select *from user_info
+  	where uino=#{uino}
+  </select>
+  
+  <insert id="insertUser">
+  	insert into user_info(uiid,uipwd,uiname,uinickname,uiemail,uibirth,uiphoneno,uigender,uiavtive)
+  	values(#{uiid},#{uipwd},#{uiname},#{uinickname},#{uiemail},#{uibirth},#{uiphoneno},#{uigender},#{uiavtive})
+  </insert>
+  
+  <delete id="deleteUser">
+  delete from user_info
+  where uino =#{uino}
+  </delete>
+  <update id="updateUser">
+  update user_info 
+  	<set>
+  		<if test="uino!=null">uino=#{uino},</if>
+    	<if test="uiid!=null">uiid=#{uiid},</if>
+    	<if test="uipwd!=null">uipwd=#{uipwd},</if>
+    	<if test="uiname!=null">uiname=#{uiname},</if>
+    	<if test="uinickname!=null">uinickname=#{uinickname},</if>
+    	<if test="uiemail!=null">uiemail=#{uiemail},</if>
+    	<if test="uibirth!=null">uibirth=#{uibirth},</if>
+    	<if test="uiphoneno!=null">uiphoneno=#{uiphoneno},</if>
+    	<if test="uigender!=null">uigender=#{uigender},</if>
+    	<if test="uiactive!=null">uiactive=#{uiactive}</if>
+  	</set>
+  	where uino =#{uino}
+  </update>
+  
+</mapper>
