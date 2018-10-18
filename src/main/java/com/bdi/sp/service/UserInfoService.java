@@ -11,4 +11,5 @@ public interface UserInfoService {
 	public int insertUser(User ui);
 	public int deleteUser(int uino);
 	public int updateUser(User ui);
+	public int loginUser(User ui);
 }

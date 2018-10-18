@@ -45,4 +45,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return udao.updateUser(ui);
 	}
 
+	@Override
+	public int loginUser(User ui) {
+		return udao.loginUser(ui);
+	}
+
 }

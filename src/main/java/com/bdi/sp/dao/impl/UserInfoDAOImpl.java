@@ -48,6 +48,17 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		// TODO Auto-generated method stub
 		return ss.update("com.bdi.sp.vo.User.updateUser",ui);
 	}
+
+
+	@Override
+	public int loginUser(User ui) {
+		// TODO Auto-generated method stub
+		int cnt=0;
+		if(ss.selectOne("com.bdi.sp.vo.User.loginUser",ui)!=null) {
+			cnt++;
+		}
+		return cnt;
+	}
 	
 
 	

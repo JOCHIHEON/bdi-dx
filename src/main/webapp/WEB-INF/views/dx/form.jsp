@@ -5,6 +5,14 @@
 <head>
 	<meta charset="utf-8">
 	<title>스프링테스트</title>
+<style>
+    html, body {
+        width: 100%;      /*provides the correct work of a full-screen layout*/ 
+        height: 100%;     /*provides the correct work of a full-screen layout*/
+        overflow: hidden; /*hides the default body's space*/
+        margin: 0px;      /*hides the body's scrolls*/
+    }
+</style>
 </head>
 <script>
 	var wWidth = screen.width;
@@ -28,25 +36,32 @@
 	var loginFormData = [
 		{type:'fieldset',name:'login',label:'login',inputWidth:'auto',
 			list:[
-				{type:'input',name:'id',label:'ID',validate:'ValidAplhaNumeric',required:true},
-				{type:'password',name:'pwd',label:'PWD',validate:'ValidAplhaNumeric',required:true},
+				{type:'input',name:'uiid',label:'ID',validate:'ValidAplhaNumeric',required:true},
+				{type:'password',name:'uipwd',label:'PWD',validate:'ValidAplhaNumeric',required:true},
 				{type:'button',name:'loginbtn',value:'LOGIN'}
 			]}
 	]
 	function doInit(){
+		var layout = new dhtmlXLayoutObject({
+		    parent: "layoutObj",
+		    pattern: "2U"
+		});
+		layout.cells("a").setText("유저정보");
+		layout.cells("b").setText("<button>추가</button><button>삭제</button>");
 		var forms = [
 			{type:'button',value:'로그인',name:'loginWin'},
 			{type:'button',value:'회원가입',name:'joinWin'}
 		]
 		var uiGrid;
 		uiGrid = new dhtmlXGridObject('dxGrid');
+		uiGrid = layout.cells("a").attachGrid();
 		uiGrid.setImagePath('${resPath}/dhtmlx/skins/skyblue/imgs/dhxgrid_skyblue/');
 		uiGrid.setHeader('번호,아이디,이름,별명,이메일,생년월일,전화번호,성별');
 		uiGrid.setColumnIds('uino,uiid,uiname,uinickname,uiemail,uibirth,uiphoneno,uigender');
 		uiGrid.setColAlign('center,center,center,center,center,center,center,center');
 		uiGrid.setColTypes('ro,ro,ro,ed,ed,ed,ed,ro');
-		uiGrid.setColSorting('int,str,str,str,str,str,int,int');
-		uiGrid.init();
+		uiGrid.setColSorting('int,str,str,str,str,str,int,int');		
+		uiGrid.init();		
 		au.send({url:'/users',success:function(res){
 			res= JSON.parse(res);
 			uiGrid.parse(res,'js');
@@ -73,7 +88,7 @@
 									var phone = joinForm.getItemValue('UIPHONENO');
 									var gender = joinForm.getItemValue('UIGENDER');
 									var conf = {
-											url:'/login',
+											url:'/join',
 											method:'POST',
 											param: JSON.stringify({id:id,pwd:pwd,name:name,nickname:nickname,email:email,
 												birth:birth,phone:phone,gender:gender}),
@@ -98,12 +113,12 @@
 				loginForm.attachEvent('onButtonClick',function(name){
 						if(name=='loginbtn'){
 							if(loginForm.validate()){
-								var id = loginForm.getItemValue('id');
-								var pwd = loginForm.getItemValue('pwd');
+								var uiid = loginForm.getItemValue('uiid');
+								var uipwd = loginForm.getItemValue('uipwd');
 								var conf = {
 										url:'/login',
 										method:'POST',
-										param: JSON.stringify({id:id,pwd:pwd}),
+										param: JSON.stringify({uiid:uiid,uipwd:uipwd}),
 										success : function(res){
 											res = JSON.parse(res);
 											alert(res.msg);
@@ -120,7 +135,8 @@
 	window.addEventListener('load',doInit)
 </script>
 <body>
-<div id="dxGrid" style="width:1000px;height:350px"></div>
+<div id="layoutObj" style="position: relative; width: 1000px; height: 300px;"></div>
+<div id="dxGrid"></div>
 <div id="dxForm" style="height:200px"></div>
 <div id="loginForm" style="width:200px;height:100px"></div>
 <div id="joinForm" style="width:300px;height:500px"></div>

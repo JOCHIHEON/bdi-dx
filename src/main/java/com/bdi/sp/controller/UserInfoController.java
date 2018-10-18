@@ -1,6 +1,8 @@
 package com.bdi.sp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bdi.sp.service.UserInfoService;
 import com.bdi.sp.vo.User;
@@ -48,7 +51,20 @@ private static final Logger logger = LoggerFactory.getLogger(UserInfoController.
 		logger.debug("userinfo=>{}",ui);
 		return us.updateUser(ui);
 	}
-	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public @ResponseBody Map<String,String> login(@RequestBody User user){
+		Map<String,String> rMap = new HashMap<String,String>();
+		rMap.put("login", "fail");
+		rMap.put("msg", "아이디, 비밀번호를 확인하세요");
+		if(us.loginUser(user)==0) {
+			return rMap;
+		}
+		if(us.loginUser(user)==1) {
+			rMap.put("login", "success");
+			rMap.put("msg", "로그인 되셨습니다.");
+		}
+		return rMap;
+	}
 
 }
 

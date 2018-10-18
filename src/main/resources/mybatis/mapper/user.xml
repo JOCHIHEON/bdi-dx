@@ -24,6 +24,11 @@
   	where uino=#{uino}
   </select>
   
+  <select id='loginUser' resultType="com.bdi.sp.vo.User" parameterType="com.bdi.sp.vo.User">
+  	select*from user_info
+  	where uiid=#{uiid} and uipwd=#{uipwd}
+  </select>
+  
   <insert id="insertUser">
   	insert into user_info(uiid,uipwd,uiname,uinickname,uiemail,uibirth,uiphoneno,uigender,uiavtive)
   	values(#{uiid},#{uipwd},#{uiname},#{uinickname},#{uiemail},#{uibirth},#{uiphoneno},#{uigender},#{uiavtive})
