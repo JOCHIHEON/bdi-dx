@@ -26,7 +26,7 @@
 				{type:'input',name:'UINAME',label:'이름',required:true},
 				{type:'input',name:'UINICKNAME',label:'별명',required:true},
 				{type:'input',name:'UIEMAIL',label:'이메일',required:true},
-				{type:'date',name:'UIBIRTH',label:'생년월일',required:true},
+				{type:'number',name:'UIBIRTH',label:'생년월일',required:true},
 				{type:'input',name:'UIPHONENO',label:'전화번호', required:true},
 				{type:'radio',name:'UIGENDER',value:'1',label:'남', checked:true},
 				{type:'radio',name:'UIGENDER',value:'0',label:'여'},
@@ -76,24 +76,24 @@
 					w2 = dxWin.createWindow('w2',0,10,400,400);
 					w2.setText('회원가입');
 					w2.centerOnScreen();
-					var loginForm = new dhtmlXForm('joinForm',joinFormData);
+					var joinForm = new dhtmlXForm('joinForm',joinFormData);
 					dxWin.window('w2').attachObject('joinForm');
-					loginForm.attachEvent('onButtonClick',function(name){
+					joinForm.attachEvent('onButtonClick',function(name){
 							if(name=='joinbtn'){
-								if(loginForm.validate()){
-									var id = joinForm.getItemValue('UIID');
-									var pwd = joinForm.getItemValue('UIPWD');
-									var name = joinForm.getItemValue('UINAME');
-									var nickname = joinForm.getItemValue('UINICKNAME');
-									var email = joinForm.getItemValue('UIEMAIL');
-									var birth = joinForm.getItemValue('UIBIRTH');
-									var phone = joinForm.getItemValue('UIPHONENO');
-									var gender = joinForm.getItemValue('UIGENDER');
+								if(joinForm.validate()){
+									var uiid = joinForm.getItemValue('uiid');
+									var uipwd = joinForm.getItemValue('uipwd');
+									var uiname = joinForm.getItemValue('uiname');
+									var uinickname = joinForm.getItemValue('uinickname');
+									var uiemail = joinForm.getItemValue('uiemail');
+									var uibirth = joinForm.getItemValue('uibirth');
+									var uiphone = joinForm.getItemValue('uiphoneno');
+									var uigender = joinForm.getItemValue('uigender');
 									var conf = {
-											url:'/join',
+											url:'/users',
 											method:'POST',
-											param: JSON.stringify({id:id,pwd:pwd,name:name,nickname:nickname,email:email,
-												birth:birth,phone:phone,gender:gender}),
+											param: JSON.stringify({uiid:uiid,uipwd:uipwd,uiname:uiname,uinickname:uinickname
+												,uiemail:uiemail,uibirth:uibirth,uiphone:uiphone,uigender:uigender}),
 											success : function(res){
 												res = JSON.parse(res);
 												alert(res.msg);
