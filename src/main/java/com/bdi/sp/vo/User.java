@@ -9,7 +9,7 @@ public class User {
 	private String uinickname;
 	private String uiemail;
 	private String uibirth;
-	private Integer uiphoneno;
+	private String uiphoneno;
 	private Integer uigender;
 	private Integer uiactive;
 	public Integer getUino() {
@@ -54,10 +54,10 @@ public class User {
 	public void setUibirth(String uibirth) {
 		this.uibirth = uibirth;
 	}
-	public Integer getUiphoneno() {
+	public String getUiphoneno() {
 		return uiphoneno;
 	}
-	public void setUiphoneno(Integer uiphoneno) {
+	public void setUiphoneno(String uiphoneno) {
 		this.uiphoneno = uiphoneno;
 	}
 	public Integer getUigender() {
@@ -78,5 +78,6 @@ public class User {
 				+ uinickname + ", uiemail=" + uiemail + ", uibirth=" + uibirth + ", uiphoneno=" + uiphoneno
 				+ ", uigender=" + uigender + ", uiactive=" + uiactive + "]";
 	}
+	
 	
 }

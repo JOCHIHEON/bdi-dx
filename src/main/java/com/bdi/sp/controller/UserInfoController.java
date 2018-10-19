@@ -36,14 +36,13 @@ private static final Logger logger = LoggerFactory.getLogger(UserInfoController.
 	public @ResponseBody User getUser(@PathVariable Integer uino) {
 		return us.getUser(uino);
 	} 
-	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.POST)
-	public @ResponseBody int insertUser(@ModelAttribute User ui,@PathVariable Integer uino) {
+	@RequestMapping(value="/users" ,method=RequestMethod.POST)
+	public @ResponseBody int insertUser(@RequestBody User ui) {
 		logger.debug("userinfo=>{}",ui);
 		return us.insertUser(ui);
 	}
 	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.DELETE)
-	public @ResponseBody int deleteUser(@RequestBody User ui,@PathVariable Integer uino) {
-		logger.debug("userinfo=>{}",ui);
+	public @ResponseBody int deleteUser(@PathVariable Integer uino) {
 		return us.deleteUser(uino);
 	}
 	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.PUT)

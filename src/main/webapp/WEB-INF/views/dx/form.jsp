@@ -21,15 +21,20 @@
 	var joinFormData = [
 		{type:'fieldset',name:'join',label:'join',inputWidth:'auto',
 			list:[
-				{type:'input',name:'UIID',label:'아이디',validate:'ValidAplhaNumeric',required:true},
-				{type:'password',name:'UIPWD',label:'비밀번호',validate:'ValidAplhaNumeric',required:true},
-				{type:'input',name:'UINAME',label:'이름',required:true},
-				{type:'input',name:'UINICKNAME',label:'별명',required:true},
-				{type:'input',name:'UIEMAIL',label:'이메일',required:true},
-				{type:'input',name:'UIBIRTH',label:'생년월일',required:true},
-				{type:'input',name:'UIPHONENO',label:'전화번호', required:true},
-				{type:'radio',name:'UIGENDER',value:'1',label:'남', checked:true},
-				{type:'radio',name:'UIGENDER',value:'0',label:'여'},
+				{type:'input',name:'uiid',label:'아이디',validate:'ValidAplhaNumeric',required:true},
+				{type:'password',name:'uipwd',label:'비밀번호',validate:'ValidAplhaNumeric',required:true},
+				{type:'input',name:'uiname',label:'이름',required:true},
+				{type:'input',name:'uinickname',label:'별명',required:true},
+				{type:'input',name:'uiemail',label:'이메일',required:true},
+				{type:'input',name:'uibirth',label:'생년월일',required:true},
+				{type:'input',name:'uiphoneno',label:'전화번호', required:true},
+				{type:'block',list:[
+					{type:'label',label:'성별'},
+					{type:"newcolumn"}, 
+			        {type:"radio", name:"uigender", value:'1',label:'남', checked:true,  offsetTop:10},
+			        {type:"newcolumn"},
+			        {type:"radio", name:"uigender", value:'0',label:'여',  offsetTop:10}
+			    ]},
 				{type:'button',name:'joinbtn',value:'JOIN'}
 			]}
 	]
@@ -41,6 +46,31 @@
 				{type:'button',name:'loginbtn',value:'LOGIN'}
 			]}
 	]
+	var updateFormData = [
+		{type: "block", list:[
+	        {type:"fieldset",  label:"details", width:270, list:[
+	        	{type:'input',name:'uino',label:'번호',validate:'ValidInteger'},
+	        	{type:'input',name:'uiid',label:'아이디',validate:'ValidAplhaNumeric'},
+				{type:'password',name:'uipwd',label:'비밀번호',validate:'ValidAplhaNumeric'},
+				{type:'input',name:'uiname',label:'이름'},
+				{type:'input',name:'uinickname',label:'별명'},
+				{type:'input',name:'uiemail',label:'이메일'},
+				{type:'input',name:'uibirth',label:'생년월일'},
+				{type:'input',name:'uiphoneno',label:'전화번호'},
+				{type:'block',list:[
+					{type:'label',label:'성별'},
+					{type:"newcolumn"}, 
+			        {type:"radio", name:"uigender", value:'1',label:'Man',  offsetTop:10},
+			        {type:"newcolumn"},
+			        {type:"radio", name:"uigender", value:'0',label:'Woman',  offsetTop:10}
+			    ]},
+				{type:"block", list:[
+			        {type:"button", name:"updatebtn", value:"수정",  offsetTop:10},
+			        {type:"newcolumn"},
+			        {type:"button", name:"deletebtn", value:"삭제",  offsetTop:10}
+			    ]}
+	    ]}]}
+	]
 	function doInit(){
 		var layout = new dhtmlXLayoutObject({
 		    parent: "layoutObj",
@@ -49,7 +79,45 @@
 		    	{id:"a", text: "유저정보"},
 				{id:"b", text: "유저수정", width: 300, collapse: true}
 		    ]
-		}); 
+		});
+		var updateform = new dhtmlXForm("updateForm", updateFormData);
+		updateform = layout.cells("b").attachForm(updateFormData);
+		updateform.attachEvent('onButtonClick',function(name){
+			if(name=='updatebtn'){
+				var uino = updateForm.getItemValue('uino');
+				var uiid = updateForm.getItemValue('uiid');
+				var uipwd = updateForm.getItemValue('uipwd');
+				var uiname = updateForm.getItemValue('uiname');
+				var uinickname = updateForm.getItemValue('uinickname');
+				var uiemail = updateForm.getItemValue('uiemail');
+				var uibirth = updateForm.getItemValue('uibirth');
+				var uiphoneno = updateForm.getItemValue('uiphoneno');
+				var uigender = updateForm.getItemValue('uigender');
+				var conf = {
+						url:'/users/'+uino,
+						method:'PUT',
+						param: JSON.stringify({uino:uino,uiid:uiid,uipwd:uipwd,uiname:uiname,uinickname:uinickname
+							,uiemail:uiemail,uibirth:uibirth,uiphoneno:uiphoneno,uigender:uigender}),
+						success : function(res){
+							res = JSON.parse(res);
+							alert(res.msg);
+						}
+				}
+				au.send(conf);
+			}else if(name=='deletebtn'){
+				var uino = updateForm.getItemValue('uino');
+				var conf = {
+						url:'/users/'+uino,
+						method:'PUT',
+						param: JSON.stringify({uino:uino}),
+						success : function(res){
+							res = JSON.parse(res);
+							alert(res.msg);
+						}
+				}
+				au.send(conf);
+			}
+		})
 		var forms = [
 			{type:'button',value:'로그인',name:'loginWin'},
 			{type:'button',value:'회원가입',name:'joinWin'}
@@ -87,13 +155,13 @@
 									var uinickname = joinForm.getItemValue('uinickname');
 									var uiemail = joinForm.getItemValue('uiemail');
 									var uibirth = joinForm.getItemValue('uibirth');
-									var uiphone = joinForm.getItemValue('uiphoneno');
+									var uiphoneno = joinForm.getItemValue('uiphoneno');
 									var uigender = joinForm.getItemValue('uigender');
 									var conf = {
 											url:'/users',
 											method:'POST',
 											param: JSON.stringify({uiid:uiid,uipwd:uipwd,uiname:uiname,uinickname:uinickname
-												,uiemail:uiemail,uibirth:uibirth,uiphone:uiphone,uigender:uigender}),
+												,uiemail:uiemail,uibirth:uibirth,uiphoneno:uiphoneno,uigender:uigender}),
 											success : function(res){
 												res = JSON.parse(res);
 												alert(res.msg);
@@ -142,5 +210,6 @@
 <div id="dxForm" style="height:200px; float:right;"></div>
 <div id="loginForm" style="width:200px;height:100px"></div>
 <div id="joinForm" style="width:300px;height:500px"></div>
+<div id="updateForm" style="width:250px; height:160px; background-color:white;"></div>
 </body>
 </html>

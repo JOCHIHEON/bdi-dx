@@ -30,8 +30,8 @@
   </select>
   
   <insert id="insertUser">
-  	insert into user_info(uiid,uipwd,uiname,uinickname,uiemail,uibirth,uiphoneno,uigender,uiavtive)
-  	values(#{uiid},#{uipwd},#{uiname},#{uinickname},#{uiemail},#{uibirth},#{uiphoneno},#{uigender},#{uiavtive})
+  	insert into user_info(uiid,uipwd,uiname,uinickname,uiemail,uibirth,uiphoneno,uigender,uiactive)
+  	values(#{uiid},#{uipwd},#{uiname},#{uinickname},#{uiemail},#{uibirth},#{uiphoneno},#{uigender},#{uiactive})
   </insert>
   
   <delete id="deleteUser">
