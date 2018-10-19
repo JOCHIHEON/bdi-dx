@@ -26,7 +26,7 @@
 				{type:'input',name:'UINAME',label:'이름',required:true},
 				{type:'input',name:'UINICKNAME',label:'별명',required:true},
 				{type:'input',name:'UIEMAIL',label:'이메일',required:true},
-				{type:'number',name:'UIBIRTH',label:'생년월일',required:true},
+				{type:'input',name:'UIBIRTH',label:'생년월일',required:true},
 				{type:'input',name:'UIPHONENO',label:'전화번호', required:true},
 				{type:'radio',name:'UIGENDER',value:'1',label:'남', checked:true},
 				{type:'radio',name:'UIGENDER',value:'0',label:'여'},
