@@ -44,10 +44,12 @@
 	function doInit(){
 		var layout = new dhtmlXLayoutObject({
 		    parent: "layoutObj",
-		    pattern: "2U"
-		});
-		layout.cells("a").setText("유저정보");
-		layout.cells("b").setText("<button>추가</button><button>삭제</button>");
+		    pattern: "2U",
+		    cells: [
+		    	{id:"a", text: "유저정보"},
+				{id:"b", text: "유저수정", width: 300, collapse: true}
+		    ]
+		}); 
 		var forms = [
 			{type:'button',value:'로그인',name:'loginWin'},
 			{type:'button',value:'회원가입',name:'joinWin'}
@@ -135,9 +137,9 @@
 	window.addEventListener('load',doInit)
 </script>
 <body>
-<div id="layoutObj" style="position: relative; width: 1000px; height: 300px;"></div>
+<div id="layoutObj" style="position: relative; height: 600px;"></div>
 <div id="dxGrid"></div>
-<div id="dxForm" style="height:200px"></div>
+<div id="dxForm" style="height:200px; float:right;"></div>
 <div id="loginForm" style="width:200px;height:100px"></div>
 <div id="joinForm" style="width:300px;height:500px"></div>
 </body>

@@ -4,6 +4,7 @@
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <c:set var="resPath" value="${rootPath}/resources"/>
 <c:set var="gridPath" value="${resPath}/dhtmlx/skins/skyblue/imgs/dxgrid_skyblue"/>
+<c:set var="tbPath" value="${resPath}/dhtmlx/skins/skyblue/imgs/dxtoolbar_skyblue"/>
 <link rel="stylesheet" type="text/css" href="${resPath}/dhtmlx/codebase/dhtmlx.css"/>
 <link rel="stylesheet" type="text/css" href="${resPath}/dhtmlx/codebase/fonts/font_roboto/roboto.css"/>
 <link rel="stylesheet" type="text/css" href="${resPath}/dhtmlx/skins/skyblue/dhtmlx.css"/>
