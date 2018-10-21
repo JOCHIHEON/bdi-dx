@@ -239,9 +239,7 @@
 <div id="layoutObj" style="position: relative;height: 600px;margin-top: 50px;">
 	<div id="updateForm" style="width:250px; height:160px; background-color:white;"></div>
 	<div id="loginForm" style="width:200px;height:100px"></div>
-	<div id="joinForm" style="width:370px;height:500px">
-		<input type="hidden" id="idChk" value="N" />
-	</div>
+	<div id="joinForm" style="width:370px;height:500px"></div>
 </div>
 <div id="dxGrid"></div>
 </body>

@@ -41,7 +41,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		rMap.put("msg", "다시 시도해주세요.");
 		int cnt = udao.insertUser(ui);
 		System.out.println(cnt);
-		if(cnt!=1) {
+		if(cnt==0) {
 			return rMap;
 		}
 		if(cnt==1) {
