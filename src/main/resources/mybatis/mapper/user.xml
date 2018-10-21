@@ -21,7 +21,7 @@
   
   <select id="selectUser" resultType="com.bdi.sp.vo.User">
   	select *from user_info
-  	where uino=#{uino}
+  	where uiid=#{uiid}
   </select>
   
   <select id='loginUser' resultType="com.bdi.sp.vo.User" parameterType="com.bdi.sp.vo.User">

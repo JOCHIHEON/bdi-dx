@@ -23,8 +23,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public User getUser(int uino) {
-		return udao.getUser(uino);
+	public Map<String,String> getUser(String uiid) {
+		Map<String,String> rMap = new HashMap<String,String>();
+		rMap.put("chkDupId", "success");
+		rMap.put("msg", "사용 가능한 아이디 입니다.");
+		if(udao.getUser(uiid)==1) {
+			rMap.put("chkDupId", "fail");
+			rMap.put("msg", "아이디를 사용하실 수 없습니다.");
+		}
+		return rMap;
 	}
 
 	@Override
@@ -33,7 +40,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		rMap.put("join", "fail");
 		rMap.put("msg", "다시 시도해주세요.");
 		int cnt = udao.insertUser(ui);
-		if(cnt==0) {
+		System.out.println(cnt);
+		if(cnt!=1) {
 			return rMap;
 		}
 		if(cnt==1) {

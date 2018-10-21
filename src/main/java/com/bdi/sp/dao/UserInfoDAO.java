@@ -7,7 +7,7 @@ import com.bdi.sp.vo.User;
 public interface UserInfoDAO {
 
 	public List<User> getUserList(User ui);
-	public User getUser(int uino);
+	public int getUser(String uiid);
 	public int insertUser(User ui);
 	public int deleteUser(int uino);
 	public int updateUser(User ui);
