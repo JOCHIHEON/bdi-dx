@@ -19,42 +19,60 @@ public class UserInfoServiceImpl implements UserInfoService {
 	
 	@Override
 	public List<User> getUserList(User ui) {
-		// TODO Auto-generated method stub
 		return udao.getUserList(ui);
 	}
 
 	@Override
 	public User getUser(int uino) {
-		// TODO Auto-generated method stub
 		return udao.getUser(uino);
 	}
 
 	@Override
 	public Map<String,String> insertUser(User ui) {
 		Map<String,String> rMap = new HashMap<String,String>();
-		rMap.put("login", "fail");
+		rMap.put("join", "fail");
 		rMap.put("msg", "다시 시도해주세요.");
 		int cnt = udao.insertUser(ui);
 		if(cnt==0) {
 			return rMap;
 		}
 		if(cnt==1) {
-			rMap.put("login", "success");
+			rMap.put("join", "success");
 			rMap.put("msg", "회원가입 되셨습니다.");
 		}
 		return rMap;
 	}
 
 	@Override
-	public int deleteUser(int uino) {
-		// TODO Auto-generated method stub
-		return udao.deleteUser(uino);
+	public Map<String,String> deleteUser(int uino) {
+		Map<String,String> rMap = new HashMap<String,String>();
+		rMap.put("delete", "fail");
+		rMap.put("msg", "삭제 실패");
+		int cnt = udao.deleteUser(uino);
+		if(cnt==0) {
+			return rMap;
+		}
+		if(cnt==1) {
+			rMap.put("delete", "success");
+			rMap.put("msg", "삭제 완료");
+		}
+		return rMap;
 	}
 
 	@Override
-	public int updateUser(User ui) {
-		// TODO Auto-generated method stub
-		return udao.updateUser(ui);
+	public Map<String,String> updateUser(User ui) {
+		Map<String,String> rMap = new HashMap<String,String>();
+		rMap.put("update", "fail");
+		rMap.put("msg", "수정 실패");
+		int cnt = udao.updateUser(ui);
+		if(cnt==0) {
+			return rMap;
+		}
+		if(cnt==1) {
+			rMap.put("update", "success");
+			rMap.put("msg", "수정 완료");
+		}
+		return rMap;
 	}
 
 	@Override

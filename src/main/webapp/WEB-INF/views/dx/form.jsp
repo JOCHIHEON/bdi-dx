@@ -7,17 +7,17 @@
 	<title>스프링테스트</title>
 <style>
     html, body {
-        width: 100%;      /*provides the correct work of a full-screen layout*/ 
-        height: 100%;     /*provides the correct work of a full-screen layout*/
-        overflow: hidden; /*hides the default body's space*/
-        margin: 0px;      /*hides the body's scrolls*/
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0px;
     }
 </style>
 </head>
 <script>
 	var wWidth = screen.width;
 	var wHeight = screen.height;
-	var dxForm,dxWin,updateform;
+	var dxForm,dxWin,updateForm;
 	var userData = new dhtmlXDataStore;
 	var joinFormData = [
 		{type:'fieldset',name:'join',label:'join',inputWidth:'auto',
@@ -83,6 +83,7 @@
 		});
 		var forms = [
 			{type:'button',value:'로그인',name:'loginWin'},
+			{type:"newcolumn"},
 			{type:'button',value:'회원가입',name:'joinWin'}
 		]
 		var uiGrid;
@@ -99,7 +100,7 @@
 			res= JSON.parse(res);
 			uiGrid.parse(res,'js');
 		}});
-		var dxForm = new dhtmlXForm('dxForm',forms)
+		var dxForm = new dhtmlXForm('dxForm',forms);
 		dxForm.attachEvent('onButtonClick',function(name){
 			if(name=='joinWin'){
 				if(!dxWin){
@@ -165,14 +166,16 @@
 				}
 			}
 		})
-		updateform = new dhtmlXForm("updateForm", updateFormData);
-		updateform = layout.cells("b").attachForm(updateFormData);
-		updateform.attachEvent("onChange", function(){
-			updateform.save();
+		updateForm = new dhtmlXForm("updateForm", updateFormData);
+		updateForm = layout.cells("b").attachForm(updateFormData);
+		updateForm.setReadonly("uino", true);
+		updateForm.setReadonly("uiid", true);
+		updateForm.attachEvent("onChange", function(){
+			updateForm.save();
 			uiGrid.callEvent("onGridReconstructed",[])
 		});
-		updateform.bind(uiGrid);
-		/* updateform.attachEvent('onButtonClick',function(name){
+		updateForm.bind(uiGrid);
+		updateForm.attachEvent('onButtonClick',function(name){
 			if(name=='updatebtn'){
 				var uino = updateForm.getItemValue('uino');
 				var uiid = updateForm.getItemValue('uiid');
@@ -191,6 +194,7 @@
 						success : function(res){
 							res = JSON.parse(res);
 							alert(res.msg);
+							location.href='/uri/dx/form';
 						}
 				}
 				au.send(conf);
@@ -198,26 +202,27 @@
 				var uino = updateForm.getItemValue('uino');
 				var conf = {
 						url:'/users/'+uino,
-						method:'PUT',
+						method:'DELETE',
 						param: JSON.stringify({uino:uino}),
 						success : function(res){
 							res = JSON.parse(res);
 							alert(res.msg);
+							location.href='/uri/dx/form';
 						}
 				}
 				au.send(conf);
 			}
-		}) */
+		})
 	}
 	window.addEventListener('load',doInit)
 </script>
 <body>
-<div id="layoutObj" style="position: relative; height: 600px;">
+<div id="dxForm" style="height:200px; float:right;"></div>
+<div id="layoutObj" style="position: relative;height: 600px;margin-top: 50px;">
 	<div id="updateForm" style="width:250px; height:160px; background-color:white;"></div>
 	<div id="loginForm" style="width:200px;height:100px"></div>
-<div id="joinForm" style="width:300px;height:500px"></div>
+	<div id="joinForm" style="width:300px;height:500px"></div>
 </div>
 <div id="dxGrid"></div>
-<div id="dxForm" style="height:200px; float:right;"></div>
 </body>
 </html>

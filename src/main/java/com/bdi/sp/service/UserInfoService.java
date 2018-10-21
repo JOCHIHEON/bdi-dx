@@ -10,7 +10,7 @@ public interface UserInfoService {
 	public List<User> getUserList(User ui);
 	public User getUser(int uino);
 	public Map<String,String> insertUser(User ui);
-	public int deleteUser(int uino);
-	public int updateUser(User ui);
+	public Map<String,String> deleteUser(int uino);
+	public Map<String,String> updateUser(User ui);
 	public Map<String,String> loginUser(User ui);
 }

@@ -1,6 +1,5 @@
 package com.bdi.sp.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bdi.sp.service.UserInfoService;
 import com.bdi.sp.vo.User;
@@ -31,7 +29,6 @@ private static final Logger logger = LoggerFactory.getLogger(UserInfoController.
 	public @ResponseBody List<User> getUserList(@ModelAttribute User ui){
 		return us.getUserList(ui);
 	}
-	
 	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.GET)
 	public @ResponseBody User getUser(@PathVariable Integer uino) {
 		return us.getUser(uino);
@@ -42,11 +39,11 @@ private static final Logger logger = LoggerFactory.getLogger(UserInfoController.
 		return us.insertUser(ui);
 	}
 	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.DELETE)
-	public @ResponseBody int deleteUser(@PathVariable Integer uino) {
+	public @ResponseBody Map<String,String> deleteUser(@PathVariable Integer uino) {
 		return us.deleteUser(uino);
 	}
 	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.PUT)
-	public @ResponseBody int updateUser(@RequestBody User ui,@PathVariable Integer uino) {
+	public @ResponseBody Map<String,String> updateUser(@RequestBody User ui,@PathVariable Integer uino) {
 		logger.debug("userinfo=>{}",ui);
 		return us.updateUser(ui);
 	}
