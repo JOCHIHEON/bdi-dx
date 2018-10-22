@@ -30,11 +30,12 @@ private static final Logger logger = LoggerFactory.getLogger(UserInfoController.
 		return us.getUserList(ui);
 	}
 	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.GET)
-	public @ResponseBody Map<String, String> getUser(@PathVariable String uiid) {
-		return us.idDupUser(uiid);
+	public @ResponseBody User getUser(@PathVariable int uino) {
+		return us.getUser(uino);
 	} 
-	@RequestMapping(value="/users/{uiid}" ,method=RequestMethod.GET)
+	@RequestMapping(value="/user/chkDupId/{uiid}" ,method=RequestMethod.GET)
 	public @ResponseBody Map<String, String> idDupUser(@PathVariable String uiid) {
+		logger.debug("userinfo=>{}",uiid);
 		return us.idDupUser(uiid);
 	} 
 	@RequestMapping(value="/users" ,method=RequestMethod.POST)
@@ -51,7 +52,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserInfoController.
 		logger.debug("userinfo=>{}",ui);
 		return us.updateUser(ui);
 	}
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value="/user/login", method=RequestMethod.POST)
 	public @ResponseBody Map<String,String> login(@RequestBody User ui){
 		return us.loginUser(ui);
 	}

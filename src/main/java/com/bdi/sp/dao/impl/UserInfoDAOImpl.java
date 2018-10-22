@@ -20,8 +20,8 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		return ss.selectList("com.bdi.sp.vo.User.selectUserList",ui);
 	}
 	@Override
-	public User getUser(User ui) {
-		return ss.selectOne("com.bdi.sp.vo.User.selectUser",ui);
+	public User getUser(int uino) {
+		return ss.selectOne("com.bdi.sp.vo.User.selectUser",uino);
 	}
 	
 	@Override

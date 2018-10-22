@@ -18,7 +18,7 @@
 	var wWidth = screen.width;
 	var wHeight = screen.height;
 	var dxForm,dxWin,updateForm;
-	var idDupChk = 0;
+	var idDupChk = false;
 	var userData = new dhtmlXDataStore;
 	var joinFormData = [
 		{type:'fieldset',name:'join',label:'join',inputWidth:'auto',
@@ -118,23 +118,39 @@
 					dxWin.window('w1').attachObject('joinForm');
 					joinForm.attachEvent('onButtonClick',function(name){
 						if(name=="chkDupId"){
-							var uiid = joinForm.getItemValue('uiid');
+							var uiid;
+							uiid = joinForm.getItemValue('uiid');
+							if(uiid==""){
+								alert("아이디를 입력해주세요");
+								return;
+							}
 							var conf = {
-								url:'/users/'+uiid,
+								url:'/user/chkDupId/'+uiid,
 								method:'GET',
 								param: JSON.stringify({uiid:uiid}),
 									success : function(res){
 										res = JSON.parse(res);
 										alert(res.msg);
+										idDupChk=false;
+										if(res.chkDupId=='success'){
+											idDupChk=true;
+										}
+										if(idDupChk==false){
+											alert("아이디 중복체크를 다시 해주세요.");
+											joinForm.disableItem('joinbtn')
+											return;
+										}else if(idDupChk==true){
+											joinForm.enableItem('joinbtn');
+										}
 									}
 								}
 								au.send(conf);
-							idDupChk = 1;
 						}else if(name=='joinbtn'){
 							if(idDupChk==0){
-								alert("아이디중복체크를 해주세요.");
+								alert("아이디 중복체크를 해주세요.");
+								joinForm.disableItem('joinbtn')
 								return;
-							}else(joinForm.validate()){
+							}if(joinForm.validate()){
 								var uiid = joinForm.getItemValue('uiid');
 								var uipwd = joinForm.getItemValue('uipwd');
 								var uiname = joinForm.getItemValue('uiname');
@@ -173,7 +189,7 @@
 								var uiid = loginForm.getItemValue('uiid');
 								var uipwd = loginForm.getItemValue('uipwd');
 								var conf = {
-										url:'/login',
+										url:'/user/login',
 										method:'POST',
 										param: JSON.stringify({uiid:uiid,uipwd:uipwd}),
 										success : function(res){

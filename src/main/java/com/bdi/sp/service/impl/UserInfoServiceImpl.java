@@ -23,8 +23,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 	
 	@Override
-	public User getUser(User ui) {
-		return udao.getUser(ui);
+	public User getUser(int uino) {
+		return udao.getUser(uino);
 	}
 	
 	@Override
