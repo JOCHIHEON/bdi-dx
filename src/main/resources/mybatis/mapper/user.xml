@@ -19,8 +19,13 @@
     	</where>
   </select>
   
-  <select id="selectUser" resultType="com.bdi.sp.vo.User">
-  	select *from user_info
+  <select id='selectUser' resultType="com.bdi.sp.vo.User">
+  	select*from user_info
+  	where uino=#{uino}
+  </select>
+ 
+  <select id="idDupUser" resultType="java.lang.Integer"  parameterType="com.bdi.sp.vo.User" >
+  	select count(*) user_info
   	where uiid=#{uiid}
   </select>
   

@@ -29,9 +29,13 @@ private static final Logger logger = LoggerFactory.getLogger(UserInfoController.
 	public @ResponseBody List<User> getUserList(@ModelAttribute User ui){
 		return us.getUserList(ui);
 	}
-	@RequestMapping(value="/users/{uiid}" ,method=RequestMethod.GET)
+	@RequestMapping(value="/users/{uino}" ,method=RequestMethod.GET)
 	public @ResponseBody Map<String, String> getUser(@PathVariable String uiid) {
-		return us.getUser(uiid);
+		return us.idDupUser(uiid);
+	} 
+	@RequestMapping(value="/users/{uiid}" ,method=RequestMethod.GET)
+	public @ResponseBody Map<String, String> idDupUser(@PathVariable String uiid) {
+		return us.idDupUser(uiid);
 	} 
 	@RequestMapping(value="/users" ,method=RequestMethod.POST)
 	public @ResponseBody Map<String,String> insertUser(@RequestBody User ui) {

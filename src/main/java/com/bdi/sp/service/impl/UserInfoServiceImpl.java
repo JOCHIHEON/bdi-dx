@@ -21,13 +21,18 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public List<User> getUserList(User ui) {
 		return udao.getUserList(ui);
 	}
-
+	
 	@Override
-	public Map<String,String> getUser(String uiid) {
+	public User getUser(User ui) {
+		return udao.getUser(ui);
+	}
+	
+	@Override
+	public Map<String,String> idDupUser(String uiid) {
 		Map<String,String> rMap = new HashMap<String,String>();
 		rMap.put("chkDupId", "success");
 		rMap.put("msg", "사용 가능한 아이디 입니다.");
-		if(udao.getUser(uiid)==1) {
+		if(udao.idDupUser(uiid)==1) {
 			rMap.put("chkDupId", "fail");
 			rMap.put("msg", "아이디를 사용하실 수 없습니다.");
 		}

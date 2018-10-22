@@ -18,6 +18,7 @@
 	var wWidth = screen.width;
 	var wHeight = screen.height;
 	var dxForm,dxWin,updateForm;
+	var idDupChk = 0;
 	var userData = new dhtmlXDataStore;
 	var joinFormData = [
 		{type:'fieldset',name:'join',label:'join',inputWidth:'auto',
@@ -128,32 +129,36 @@
 									}
 								}
 								au.send(conf);
+							idDupChk = 1;
 						}else if(name=='joinbtn'){
-								if(joinForm.validate()){
-									var uiid = joinForm.getItemValue('uiid');
-									var uipwd = joinForm.getItemValue('uipwd');
-									var uiname = joinForm.getItemValue('uiname');
-									var uinickname = joinForm.getItemValue('uinickname');
-									var uiemail = joinForm.getItemValue('uiemail');
-									var uibirth = joinForm.getItemValue('uibirth');
-									var uiphoneno = joinForm.getItemValue('uiphoneno');
-									var uigender = joinForm.getItemValue('uigender');
-									var uiactive = joinForm.getItemValue('uiactive');
-									var conf = {
-											url:'/users',
-											method:'POST',
-											param: JSON.stringify({uiid:uiid,uipwd:uipwd,uiname:uiname,uinickname:uinickname
-												,uiemail:uiemail,uibirth:uibirth,uiphoneno:uiphoneno,uigender:uigender,uiactive:uiactive}),
-											success : function(res){
-												res = JSON.parse(res);
-												alert(res.msg);
-												location.href='/uri/dx/form';											}
-									}
-									au.send(conf);
+							if(idDupChk==0){
+								alert("아이디중복체크를 해주세요.");
+								return;
+							}else(joinForm.validate()){
+								var uiid = joinForm.getItemValue('uiid');
+								var uipwd = joinForm.getItemValue('uipwd');
+								var uiname = joinForm.getItemValue('uiname');
+								var uinickname = joinForm.getItemValue('uinickname');
+								var uiemail = joinForm.getItemValue('uiemail');
+								var uibirth = joinForm.getItemValue('uibirth');
+								var uiphoneno = joinForm.getItemValue('uiphoneno');
+								var uigender = joinForm.getItemValue('uigender');
+								var uiactive = joinForm.getItemValue('uiactive');
+								var conf = {
+										url:'/users',
+										method:'POST',
+										param: JSON.stringify({uiid:uiid,uipwd:uipwd,uiname:uiname,uinickname:uinickname
+											,uiemail:uiemail,uibirth:uibirth,uiphoneno:uiphoneno,uigender:uigender,uiactive:uiactive}),
+										success : function(res){
+											res = JSON.parse(res);
+											alert(res.msg);
+											location.href='/uri/dx/form';											}
 								}
+								au.send(conf);
 							}
-						})
-					}
+						}
+					})
+				}
 			}else if(name=='loginWin'){
 				if(!dxWin){
 				dxWin = new dhtmlXWindows();
