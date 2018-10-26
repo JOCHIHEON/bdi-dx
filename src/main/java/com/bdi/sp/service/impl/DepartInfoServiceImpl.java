@@ -44,4 +44,11 @@ public class DepartInfoServiceImpl implements DepartInfoService {
 		return ddao.updateDepart(d);
 	}
 
+	@Override
+	public int saveInsertDepart(Depart d) {
+		int cnt = ddao.insertDepart(d);
+		cnt += ddao.updateDepart(d);
+		return cnt;
+	}
+
 }

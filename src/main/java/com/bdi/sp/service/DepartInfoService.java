@@ -10,4 +10,5 @@ public interface DepartInfoService {
 	public int insertDepart(Depart d);
 	public int deleteDepart(int dino);
 	public int updateDepart(Depart d);
+	public int saveInsertDepart(Depart d);
 }

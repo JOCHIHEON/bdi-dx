@@ -31,7 +31,7 @@
   		<if test="didesc!=null">didesc=#{didesc},</if>
   		<if test="dicnt!=null">dicnt=#{dicnt},</if>
   	</set>
-  	where dino =#{dino}
+  	where dino1 =#{dino}
   </update>
   
 </mapper>

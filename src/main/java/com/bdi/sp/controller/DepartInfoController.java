@@ -34,10 +34,10 @@ public class DepartInfoController {
 	public @ResponseBody Depart getDepart(@PathVariable Integer dino) {
 		return ds.getDepart(dino);
 	} 
-	@RequestMapping(value="/departs/{dino}" ,method=RequestMethod.POST)
-	public @ResponseBody int insertDepart(@ModelAttribute Depart d,@PathVariable Integer dino) {
+	@RequestMapping(value="/departs" ,method=RequestMethod.POST)
+	public @ResponseBody int insertDepart(@RequestBody Depart d) {
 		logger.debug("depart=>{}",d);
-		return ds.insertDepart(d);
+		return ds.saveInsertDepart(d);
 	}
 	@RequestMapping(value="/departs/{dino}" ,method=RequestMethod.DELETE)
 	public @ResponseBody int deleteDepart(@RequestBody Depart d,@PathVariable Integer dino) {
